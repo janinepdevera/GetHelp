@@ -8,8 +8,6 @@ Created on Sun Nov 14 11:35:35 2021
 
 ### Module 2
 
-from datetime import datetime
-
 # 1. Define OptionsSelect function (for all inputs that ask users to select from list of options)   
 
 def OptionsSelect(options, name):
@@ -17,6 +15,7 @@ def OptionsSelect(options, name):
     indexValidList = []
     print('Select ' + name + ':')
     
+        # 'options' is dictionary of categories to choose from 
     for optionName in options:
         index = index + 1
         indexValidList.extend([options[optionName]])
@@ -55,24 +54,38 @@ optionsDict = {"Errands": {"1": "Flat maintenance",
                             "4": "Mall shopping",
                             "5": "Move in/out",
                             "6": "Take care of pets/plants"},
-                "Ride": {"1": "Berlin-Mitte",
-                         "2": "Charlottenburg",
-                         "3": "Prenzlauer Berg",
-                         "4": "Friedrichshain",
-                         "5": "Kreuzberg"},
+                "Ride": {"1": "Charlottenburg",
+                         "2": "Friedrichshain",
+                         "3": "Kreuzberg",
+                         "4": "Litchtenberg",
+                         "5": "Mitte",
+                         "6": "Neukoelln",
+                         "7": "Pankow",
+                         "8": "Spandau",
+                         "9": "Steglitz",
+                         "10": "Tempelhof",
+                         "11": "Schoeneberg",
+                         "12": "Treptow-Koepenick"},
                 "Translate": {"1": "English",
-                              "2": "Chinese",
-                              "3": "French",
-                              "4": "German",
+                              "2": "French",
+                              "3": "German",
+                              "4": "Hindi",
                               "5": "Japanese",
-                              "6": "Polish"},
+                              "6": "Mandarin",
+                              "7": "Polish",
+                              "8": "Russian",
+                              "9": "Spanish",
+                              "10": "Swedish"},
                 "Tutor": {"1": "Economics",
-                          "2": "English",
+                          "2": "Finance",
                           "3": "History",
                           "4": "Law",
-                          "5": "Mathematics",
-                          "6": "Statistics",
-                          "7": "Sciences"}
+                          "5": "Literature",
+                          "6": "Mathematics",
+                          "7": "Programming Language: Python",
+                          "8": "Programming Language: R",
+                          "9": "Statistics",
+                          "10": "Sciences"}
                          }
 
 # 4. Select option based on selected Help Category 
@@ -81,17 +94,37 @@ helpOptions = optionsDict[hcategory]
 
 hoption = OptionsSelect(helpOptions, "option")
 
-# 5. Select date for Help Category 
+# 5. Select date and time for Help Category
 
-def validate(date_text):
+from datetime import datetime
+
+def validate():   
+    
+    # while loop for date
     while True:
         try:
-            date_text == datetime.strptime(date_text, '%Y-%m-%d')
+            requestdate = datetime.strptime(input("What date do you need help? (YYYY-MM-DD): ") ,'%Y-%m-%d')
+            if requestdate < datetime.now():
+                print("Invalid date. Please enter a future date.")
+                continue
         except ValueError:
-            raise ValueError("Invalid date. Please enter date in YYYY-MM-DD format.")
+            print ("Invalid date. Please enter date in YYYY-MM-DD format.") 
             continue
         else:
+            
+            #while loop for time
+            while True: 
+                try:
+                    requesttime = datetime.strptime(input("What time do you need help? (HH:MM): "), "%H:%M")
+                except ValueError:
+                    print ("Invalid time. Please enter date in HH:MM format.") 
+                    continue
+                else: 
+                    break
             break
+    
+    print("Thank you! Your request has been recorded.")
 
-hdate = str(input("What date do you need help? (yyyy-mm-dd): "))
-validate(hdate)
+date = validate()
+
+
