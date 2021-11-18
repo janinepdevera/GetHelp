@@ -8,9 +8,6 @@ Created on Fri Nov 19 00:28:45 2021
 
 from datetime import datetime
 
-
-# 1. 
-
 class Request:
     def __init__(self): 
         
@@ -64,7 +61,6 @@ class Request:
         indexValidList = []
         print('Select ' + name + ':')
     
-        # 'options' is dictionary of categories to choose from 
         for optionName in options:
             index = index + 1
             indexValidList.extend([options[optionName]])
@@ -93,6 +89,7 @@ class Request:
         self.catOptions = self.optionsDict[self.selectCat]
         self.selectOption= self.OptionsSelect(self.catOptions, "Option")
 
+    # need to combine the strings for date and time after input (or print time without the date string)
     def validDate(self):   
         while True:
             try:
@@ -126,3 +123,7 @@ Request1.OptSelect()
 Request1.validDate()
 Request1.validTime()
 Request1.printDetails()
+
+# Don't mind this, just checking if we can make variables by calling from within the Request objects 
+x = Request1.selectCat
+print(x)
