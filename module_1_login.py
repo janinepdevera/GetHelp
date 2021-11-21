@@ -93,13 +93,11 @@ def checkAccount():
         print("\nPlease enter a valid option.\n")
         checkAccount()
         
-def getuserId():
-    cdb = pd.read_csv("credentials_database.csv")
-    index = cdb.index
+#def getuserId():
+    #cdb = pd.read_csv("credentials_database.csv")
+    #index = cdb.index
     #ind = len((cdb.username == username).index.tolist())-1
-    ind = index[cdb.username == username].tolist()
-    userid = cdb.userid[ind]
+    #ind = index[cdb.username == username].tolist()
+    #userid = cdb.userid[ind]
     
-checkAccount()
-
-index[cdb.username == "adelle"].tolist()
+#checkAccount()
