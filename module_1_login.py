@@ -7,13 +7,13 @@ Created on Sun Nov 14 16:47:30 2021
 
 from sys import exit
 import pandas as pd
-#import numpy as np
 import csv
-
+#import module_2_requests_oop_AA
+#import module_2_offers_oop_AA 
 
 def LogIn():
     cdb = pd.read_csv("credentials_database.csv")
-    print("Please log in using your valid username and password.\n")
+    print("\nPlease log in using your valid username and password.\n")
 
     username = str(input("Enter username: \n"))
     n1 = 0
@@ -29,9 +29,9 @@ def LogIn():
             print("Sorry, you have entered an invalid username. Try creating a new account instead.\n")
             exit()
     else:
-       print("\nThe username exists.\n")
+       #print("\nUsername is valid.")
        ind = index[cdb.username == username].tolist()
-       password = str(input("Enter password: \n"))
+       password = str(input("\nEnter password: \n"))
        while ~((cdb.password[ind] == password)[ind[0]]): 
            n2 += 1
            if (n2 < 3):
@@ -41,12 +41,14 @@ def LogIn():
            else:
                 print("Sorry, you have entered an invalid password.\n")
                 exit()
-       print("You have successfully logged in!\n")
-       exit() # go to MODULE 2
+       print("\nYou have successfully logged in!\n")
+       #userid = cdb.userid[ind]
+       #return userid
+   # go to MODULE 2
 
 def NewUser():
     cdb = pd.read_csv("credentials_database.csv")
-    print("Register now as a new user to access GetHelp.\n")       
+    print("\nRegister now as a new user to access GetHelp!\n")       
     n3 = 0 
     username = str(input("Please enter your new username: \n"))
     while(len(cdb[cdb.username == username])):
@@ -58,25 +60,46 @@ def NewUser():
             print("Try logging in instead. \n")
             LogIn()
     password = str(input("Please enter your password: \n"))
-    print("Thank you for registering!\n")
-        
+    print("\nThank you for registering!\n")
+    
+    userid = str(len(cdb) + 1) #5-digit userid
+    if len(userid) == 1:
+        userid = "0000" + userid
+    elif len(userid) == 2:
+        userid = "000" + userid
+    elif len(userid) == 3:
+        userid = "00" + userid
+    elif len(userid) == 4:
+        userid = "0" + userid
+    
     with open("credentials_database.csv", 'a', encoding = 'UTF8', newline = '') as credentials:
         credentials_writer = csv.writer(credentials)
-        credentials_writer.writerow(["000" + str(len(cdb) + 1),
+        credentials_writer.writerow([userid, 
                                      username, 
                                      password])
     LogIn()
-
+    return userid
 
 def checkAccount():
-    account = input("Do you already have a GetHelp account?\n(Y or N)? \n")
-    if (account == 'Y' or account == 'y'): 
+    account = input("Do you already have a GetHelp account?" + 
+                    "\n1. Yes" +
+                    "\n2. No" +
+                    "\nEnter 1 or 2: ")
+    if (account == "1"): 
         LogIn()
-    elif (account == 'N' or account == 'n'): 
+    elif (account == "2"): 
         NewUser()
     else:
-        print("\nPlease enter Y or N only. \n")
+        print("\nPlease enter a valid option.\n")
         checkAccount()
-
-checkAccount()
+        
+def getuserId():
+    cdb = pd.read_csv("credentials_database.csv")
+    index = cdb.index
+    #ind = len((cdb.username == username).index.tolist())-1
+    ind = index[cdb.username == username].tolist()
+    userid = cdb.userid[ind]
     
+checkAccount()
+
+index[cdb.username == "adelle"].tolist()
