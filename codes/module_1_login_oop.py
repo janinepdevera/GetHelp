@@ -52,7 +52,7 @@ class User:
                     exit()
                break
            print("\nYou have successfully logged in!\n")
-           ## need to debug this to continue to Module 2
+           ## need to debug this to continue to Module 2 (i.e. after 3 username exists then login)
         #while True:
             #pass
         
