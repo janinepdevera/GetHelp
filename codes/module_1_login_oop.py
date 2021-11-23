@@ -52,8 +52,7 @@ class User:
                     exit()
                break
            print("\nYou have successfully logged in!\n")
-           
-        # go to MODULE 2
+           ## need to debug this to continue to Module 2
         #while True:
             #pass
         
