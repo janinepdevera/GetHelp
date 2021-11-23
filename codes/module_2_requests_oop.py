@@ -6,15 +6,17 @@ Created on Fri Nov 19 00:28:45 2021
 @author: janinedevera
 """
 
-from datetime import datetime
+from datetime import datetime 
+from datetime import date 
 
 class Request:
-    def __init__(self): 
+    def __init__(self, type):
+        self.type = type
         
         self.Category = {"1": "Errands",
-                    "2": "Ride",
-                    "3": "Translate",
-                    "4": "Tutor"}
+                         "2": "Ride",
+                         "3": "Translate",
+                         "4": "Tutor"}
       
         self.optionsDict = {"Errands": {"1": "Flat maintenance",
                                         "2": "Government services",
@@ -55,7 +57,8 @@ class Request:
                                       "9": "Statistics",
                                       "10": "Sciences"}
                          }
-        
+    
+    # general function for selecting from dictionary    
     def OptionsSelect(self, options, name):
         index = 0
         indexValidList = []
@@ -81,49 +84,73 @@ class Request:
         
         return selected
     
-        
+    # select category    
     def CatSelect(self):
-      self.selectCat = self.OptionsSelect(self.Category, "Category")
+      self.selectCat = self.OptionsSelect(self.Category, self.type)
     
+    # select option
     def OptSelect(self):
         self.catOptions = self.optionsDict[self.selectCat]
-        self.selectOption= self.OptionsSelect(self.catOptions, "Option")
-
-    # need to combine the strings for date and time after input (or print time without the date string)
+        self.selectOption= self.OptionsSelect(self.catOptions, (self.type + " Option"))
+    
+    # input date    
     def validDate(self):   
         while True:
             try:
-                self.requestdate = datetime.strptime(input("What date do you need help? (YYYY-MM-DD): ") ,'%Y-%m-%d')
-                if self.requestdate < datetime.now():
+                self.requestdate = datetime.date(datetime.strptime(input("Enter date for request (YYYY-MM-DD): ") ,'%Y-%m-%d'))
+                if self.requestdate < date.today():
                     print("Invalid date. Please enter a future date.")
                     continue
             except ValueError:
                 print ("Invalid date. Please enter date in YYYY-MM-DD format.") 
                 continue
             break
-     
+    
+    # input time 
     def validTime(self):   
         while True: 
             try:
-                self.requesttime = datetime.strptime(input("What time do you need help? (HH:MM): "), "%H:%M")
+                self.requesttime = datetime.time(datetime.strptime(input("Enter time for request (HH:MM): "), "%H:%M"))
             except ValueError:
                 print ("Invalid time. Please enter date in HH:MM format.") 
                 continue
             else: 
                 break
     
+    # print request details
     def printDetails(self):
-        print("Thank you! Your request has been recorded with the following details:")
+        print("Thank you! Your", self.type, "has been recorded with the following details:")
         print("Category: ", self.selectCat)
         print("Option: ", self.selectOption)
+        print("Date: ", self.requestdate)
+        print("Time: ", self.requesttime)
         
-Request1 = Request()
-Request1.CatSelect()
-Request1.OptSelect()
-Request1.validDate()
-Request1.validTime()
-Request1.printDetails()
+        if self.type == "Help Request":
+            print("Please proceed to recording your Support Service offer.")
+    
+    def runAll(self):
+        self.CatSelect()
+        self.OptSelect()
+        self.validDate()
+        self.validTime()
+        self.printDetails()
+    
+    # getters
+    def getreqCat(self):
+        return self.selectCat
+    
+    def getreqOpt(self):
+        return self.selectOption
+    
+    def getreqDate(self):
+        return self.requestdate.date()
+        
+    def getreqTime(self):
+        return self.requesttime.time()
+    
+# run        
+Request1 = Request("Help Request")
+Request1.runAll()
 
-# Don't mind this, just checking if we can make variables by calling from within the Request objects 
-x = Request1.selectCat
-print(x)
+Offer1 = Request("Support Service")
+Offer1.runAll()
