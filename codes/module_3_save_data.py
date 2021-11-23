@@ -37,8 +37,7 @@ def saveData():
         
     # Module 3 (trial)
     ## either transform/reshape the dataframes to boolean or
-    ## change saving format to boolean using the dictionary in Module 2 
-    ## and match with columns    
+    ## change saving format to boolean using the dictionary in Module 2 then match to columns    
         ### saves new request of user to dataframe
         with open("../data/requests_database.csv", 'a', encoding = 'UTF8', newline = '') as helpRequests:
             helpRequests_writer = csv.writer(helpRequests)
@@ -49,7 +48,7 @@ def saveData():
                                          Request1.getreqCat(),
                                          Request1.getreqOpt()])
             
-       ### saves new support of user to dataframe
+       ### saves new offer of user to dataframe
     elif userType == "2":
         Offer1 = m2.Request() # can use request_OOP - if options for requests and offers are the same
         Offer1.CatSelect()
