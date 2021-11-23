@@ -24,6 +24,9 @@ def saveData():
                          "\n2. Offer to Help\n" +
                          "\nEnter 1 or 2: "))
     
+    # add a unique requestID or offerID every time a user enters a new request
+    # reqID =
+    
     if userType == "1":
         Request1 = m2.Request()
         Request1.CatSelect()
@@ -33,8 +36,10 @@ def saveData():
         Request1.printDetails()
         
     # Module 3 (trial)
+    ## either transform/reshape the dataframes to boolean or
+    ## change saving format to boolean using the dictionary in Module 2 
+    ## and match with columns    
         ### saves new request of user to dataframe
-            ### change to boolean use dictionary in Module2 and match with columns
         with open("../data/requests_database.csv", 'a', encoding = 'UTF8', newline = '') as helpRequests:
             helpRequests_writer = csv.writer(helpRequests)
             helpRequests_writer.writerow([user1.getuserId(),
