@@ -8,8 +8,7 @@ Created on Sat Nov 20 17:03:58 2021
 import csv
 #import pandas as pd
 import module_1_login_oop as m1
-import module_2_requests_oop_AA as m2
-#import module_2_offers_oop_AA as m2b
+import module_2_requests_oop as m2
 
 def saveData():
     # Call Module 1
@@ -28,12 +27,9 @@ def saveData():
     # reqID =
     
     if userType == "1":
-        Request1 = m2.Request()
-        Request1.CatSelect()
-        Request1.OptSelect()
-        Request1.validDate()
-        Request1.validTime()
-        Request1.printDetails()
+        Request1 = m2.Request("Help Request")
+        Request1.runAll()
+        
         
     # Module 3 (trial)
     ## either transform/reshape the dataframes to boolean or
@@ -50,12 +46,8 @@ def saveData():
             
        ### saves new offer of user to dataframe
     elif userType == "2":
-        Offer1 = m2.Request() # can use request_OOP - if options for requests and offers are the same
-        Offer1.CatSelect()
-        Offer1.OptSelect()
-        Offer1.validDate()
-        Offer1.validTime()
-        Offer1.printDetails()
+        Offer1 = m2.Request("Support Service") # can use request_OOP - if options for requests and offers are the same
+        Offer1.runAll()
         
         with open("../data/support_database.csv", 'a', encoding = 'UTF8', newline = '') as supportServices:
             supportServices_writer = csv.writer(supportServices)
