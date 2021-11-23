@@ -143,14 +143,8 @@ class Request:
         return self.selectOption
     
     def getreqDate(self):
-        return self.requestdate.date()
+        return self.requestdate
         
     def getreqTime(self):
-        return self.requesttime.time()
+        return self.requesttime
     
-# run        
-Request1 = Request("Help Request")
-Request1.runAll()
-
-Offer1 = Request("Support Service")
-Offer1.runAll()
