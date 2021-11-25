@@ -106,8 +106,7 @@ class User:
         else:
             print("\nPlease enter a valid option.\n")
             User.checkAccount(self)    
-     
-    ## getters    
+       
     def getuserId(self):
         self.cdb = pd.read_csv("../data/credentials_database.csv")
         ind = self.index[self.cdb.username == self.username].tolist()
