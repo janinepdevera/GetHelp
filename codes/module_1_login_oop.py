@@ -6,16 +6,18 @@ Created on Sun Nov 14 16:47:30 2021
 """
 
 from sys import exit
-import time
 import pandas as pd
+import time
 import csv
+import base64
 
 
 class User:
-    def __init__(self, cdb = pd.DataFrame(), username="", password="", userid = "", index = ""):
+    def __init__(self, cdb = pd.DataFrame(), username="", password="", pw_encrypt="", userid = "", index = ""):
         self.cdb = cdb
         self.username = username
         self.__password = password
+        self.__pw_encrypt = pw_encrypt
         self.userid = userid
         self.index = index
         
@@ -40,12 +42,14 @@ class User:
         else:
            ind = self.index[self.cdb.username == self.username].tolist()
            self.password = str(input("\nEnter password: \n"))
-           while ~((self.cdb.password[ind] == self.password)[ind[0]]): 
+           self.pw_encrypt = base64.b64encode(self.password.encode("utf-8")).decode()
+           while ~((self.cdb.password[ind] == self.pw_encrypt)[ind[0]]): 
                n2 += 1
                if (n2 < 3):
                     print("\nIncorrect password. Please enter your correct credentials.\n")
                     print("Username:\n" + self.username)
                     self.password = str(input("Enter password: \n"))
+                    self.pw_encrypt = base64.b64encode(self.password.encode("utf-8")).decode()
                else:
                     print("Sorry, you have entered an invalid password.\n")
                     time.sleep(2)
@@ -70,6 +74,7 @@ class User:
                 print("Try logging in instead. \n")
                 User.LogIn(self)
         self.password = str(input("Please enter your password: \n"))
+        self.pw_encrypt = str(base64.b64encode(self.password.encode("utf-8")).decode())
         print("\nThank you for registering!\n")
         
         self.userid = str(len(self.cdb) + 1) #5-digit userid
@@ -86,7 +91,7 @@ class User:
             credentials_writer = csv.writer(credentials)
             credentials_writer.writerow([self.userid, 
                                          self.username, 
-                                         self.password])
+                                         self.pw_encrypt])
         User.LogIn(self)
     
     def checkAccount(self):
