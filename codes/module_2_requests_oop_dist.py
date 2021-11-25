@@ -24,18 +24,6 @@ class Request:
                                         "4": "Mall shopping",
                                         "5": "Move in/out",
                                         "6": "Take care of pets/plants"},
-                            "Ride": {"1": "Charlottenburg",
-                                     "2": "Friedrichshain",
-                                     "3": "Kreuzberg",
-                                     "4": "Litchtenberg",
-                                     "5": "Mitte",
-                                     "6": "Neukoelln",
-                                     "7": "Pankow",
-                                     "8": "Spandau",
-                                     "9": "Steglitz",
-                                     "10": "Tempelhof",
-                                     "11": "Schoeneberg",
-                                     "12": "Treptow-Koepenick"},
                             "Translate": {"1": "English",
                                           "2": "French",
                                           "3": "German",
@@ -90,8 +78,20 @@ class Request:
     
     # select option
     def OptSelect(self):
-        self.catOptions = self.optionsDict[self.selectCat]
-        self.selectOption= self.OptionsSelect(self.catOptions, (self.type + " Option"))
+        if self.selectCat != "Ride":
+            self.catOptions = self.optionsDict[self.selectCat]
+            self.selectOption= self.OptionsSelect(self.catOptions, (self.type + " Option"))            
+        else:
+            self.selectOption = "NA"
+    
+    # select option
+    def LocSelect(self):
+        if self.selectCat == "Ride":
+            self.OptOrg = input("Please enter the complete address of your origin: ")
+            self.OptDest = input("Please enter the complete address of your destination: ")
+        else:
+            self.OptOrg = "NA"
+            self.OptDest = "NA"
     
     # input date    
     def validDate(self):   
@@ -122,12 +122,15 @@ class Request:
         print("Thank you! Your", self.type, "has been recorded with the following details:")
         print("Category: ", self.selectCat)
         print("Option: ", self.selectOption)
+        print("Origin: ", self.OptOrg)
+        print("Destination: ", self.OptDest)
         print("Date: ", self.requestdate)
         print("Time: ", self.requesttime)
     
     def runAll(self):
         self.CatSelect()
         self.OptSelect()
+        self.LocSelect()
         self.validDate()
         self.validTime()
         self.printDetails()
@@ -139,9 +142,15 @@ class Request:
     def getreqOpt(self):
         return self.selectOption
     
+    def getreqOrg(self):
+        return self.OptOrg
+    
+    def getreqDest(self):
+        return self.OptDest
+    
     def getreqDate(self):
         return self.requestdate
         
     def getreqTime(self):
         return self.requesttime
-    
+
