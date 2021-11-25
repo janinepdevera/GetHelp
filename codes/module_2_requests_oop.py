@@ -124,9 +124,6 @@ class Request:
         print("Option: ", self.selectOption)
         print("Date: ", self.requestdate)
         print("Time: ", self.requesttime)
-        
-        if self.type == "Help Request":
-            print("Please proceed to recording your Support Service offer.")
     
     def runAll(self):
         self.CatSelect()
