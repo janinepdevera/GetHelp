@@ -8,6 +8,11 @@ Created on Fri Nov 19 00:28:45 2021
 
 from datetime import datetime 
 from datetime import date 
+from geopy.geocoders import Nominatim
+
+def geo(loc):  
+    geolocator = Nominatim(user_agent="http")
+    return geolocator.geocode(loc)
 
 class Request:
     def __init__(self, type):
@@ -85,10 +90,30 @@ class Request:
             self.selectOption = "NA"
     
     # select option
-    def LocSelect(self):
+    def LocSelect(self):  
         if self.selectCat == "Ride":
-            self.OptOrg = input("Please enter the complete address of your origin: ")
-            self.OptDest = input("Please enter the complete address of your destination: ")
+            self.OptOrg = str(input("Please enter the complete address of your origin: "))
+            self.OrgAdd = geo(str(self.OptOrg) + " Berlin, Deutschland").address #must always be within Berlin state
+            self.OrgCoord = (geo(self.OptOrg).latitude, geo(self.OptOrg).longitude)
+            
+            self.OptDest = str(input("Please enter the complete address of your destination: "))
+            self.DestAdd = geo(str(self.OptDest) + " Berlin, Deutschland").address
+            self.DestCoord = (geo(self.OptDest).latitude, geo(self.OptDest).longitude)            
+        
+            
+        # add exception if address is not in Berlin
+        
+        # ask if address is correct            
+#            OrgCheck = input("Is this pickup address correct?\n" + self.OrgAdd +
+#                             "\n \n1. Yes \n2. No"
+#                             "\nEnter 1 or 2:")
+#            while OrgCheck == 1:
+#                self.OrgCoord = (geo(self.OptOrg).latitude, geo(self.OptOrg).longitude)
+#                self.OptDest = str(input("Please enter the complete address of your destination: "))
+#                self.DestAdd = geo(self.OptDest).address    
+#            else:
+#                Request.LocSelect(self)
+      
         else:
             self.OptOrg = "NA"
             self.OptDest = "NA"
@@ -122,8 +147,10 @@ class Request:
         print("Thank you! Your", self.type, "has been recorded with the following details:")
         print("Category: ", self.selectCat)
         print("Option: ", self.selectOption)
-        print("Origin: ", self.OptOrg)
-        print("Destination: ", self.OptDest)
+#        print("Origin: ", self.OptOrg)
+#        print("Destination: ", self.OptDest)
+        print("Origin: ", self.OrgAdd)
+        print("Destination: ", self.DestAdd)
         print("Date: ", self.requestdate)
         print("Time: ", self.requesttime)
     
@@ -145,8 +172,20 @@ class Request:
     def getreqOrg(self):
         return self.OptOrg
     
+    def getreqOrg_add(self):
+        return self.OrgAdd
+    
+    def getreqOrg_coord(self):
+        return self.OrgCoord
+    
     def getreqDest(self):
         return self.OptDest
+    
+    def getreqDest_add(self):
+        return self.DestAdd
+    
+    def getreqDest_coord(self):
+        return self.DestCoord
     
     def getreqDate(self):
         return self.requestdate
