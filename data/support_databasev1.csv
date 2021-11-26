@@ -1,2 +1,2 @@
-userid,userType,offerDate,offerTime,offerCat,offerOpt,offerOrg,offerOrg_add,offerOrg_coord,offerDest,offerDest_add,offerDest_coord
+userid,userType,offerDate,offerTime,offerCat,offerOpt,offerOrg,offerOrgAdd,offerOrgCoord,offerDest,offerDestAdd,offerDestCoord
 00002,2,2021-12-01,09:00:00,Ride,NA,Berlin Brandenburg Airport,"Leonardo Airport Berlin-Brandenburg, 18, Schwalbenweg, Altglienicke, Treptow-Köpenick, Berlin, 12526, Deutschland","(52.3976851, 13.5367764)","Hertie School, Berlin","Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)"
