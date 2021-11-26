@@ -6,7 +6,6 @@ Created on Sat Nov 20 17:03:58 2021
 """
 
 import csv
-#import pandas as pd
 import module_1_login_oop as m1
 import module_2_requests_oop_dist as m2
 
@@ -35,7 +34,7 @@ def saveData():
     ## either transform/reshape the dataframes to boolean or
     ## change saving format to boolean using the dictionary in Module 2 then match to columns    
         ### saves new request of user to dataframe
-        with open("../data/requests_database.csv", 'a', encoding = 'UTF8', newline = '') as helpRequests:
+        with open("../data/requests_databasev1.csv", 'a', encoding = 'UTF8', newline = '') as helpRequests:
             helpRequests_writer = csv.writer(helpRequests)
             helpRequests_writer.writerow([user1.getuserId(),
                                          userType,
@@ -44,14 +43,18 @@ def saveData():
                                          Request1.getreqCat(),
                                          Request1.getreqOpt(),
                                          Request1.getreqOrg(),
-                                         Request1.getreqDest()])
+                                         Request1.getreqOrg_add(),
+                                         Request1.getreqOrg_coord(),
+                                         Request1.getreqDest(),
+                                         Request1.getreqDest_add(),
+                                         Request1.getreqDest_coord()])
             
        ### saves new offer of user to dataframe
     elif userType == "2":
         Offer1 = m2.Request("Support Service") # can use request_OOP - if options for requests and offers are the same
         Offer1.runAll()
         
-        with open("../data/support_database.csv", 'a', encoding = 'UTF8', newline = '') as supportServices:
+        with open("../data/support_databasev1.csv", 'a', encoding = 'UTF8', newline = '') as supportServices:
             supportServices_writer = csv.writer(supportServices)
             supportServices_writer.writerow([user1.getuserId(),
                                          userType,
@@ -60,7 +63,11 @@ def saveData():
                                          Offer1.getreqCat(),
                                          Offer1.getreqOpt(),
                                          Offer1.getreqOrg(),
-                                         Offer1.getreqDest()])
+                                         Offer1.getreqOrg_add(),
+                                         Offer1.getreqOrg_coord(),
+                                         Offer1.getreqDest(),
+                                         Offer1.getreqDest_add(),
+                                         Offer1.getreqDest_coord()])
 
 saveData()  
   
