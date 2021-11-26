@@ -70,7 +70,8 @@ class User:
             if (n3 < 3):
                 print("\nUsername already exists. Please create a new account using a unique username.\n")
                 self.username = str(input("Please enter a unique username: \n"))
-            if (n3 == 2):
+            #if (n3 == 2):
+            else:
                 print("Try logging in instead. \n")
                 User.LogIn(self)
         self.password = str(input("Please enter your password: \n"))
