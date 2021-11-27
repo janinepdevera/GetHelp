@@ -12,6 +12,17 @@ import csv
 import base64
 
 
+def useridFormat(userid):
+    if len(userid) == 1:
+        userid = "0000" + userid
+    elif len(userid) == 2:
+        userid = "000" + userid
+    elif len(userid) == 3:
+        userid = "00" + userid
+    elif len(userid) == 4:
+        userid = "0" + userid
+    return userid
+
 class User:
     def __init__(self, cdb = pd.DataFrame(), username="", password="", pw_encrypt="", userid = "", index = ""):
         self.cdb = cdb
@@ -78,16 +89,8 @@ class User:
         self.pw_encrypt = str(base64.b64encode(self.password.encode("utf-8")).decode())
         print("\nThank you for registering!\n")
         
-        self.userid = str(len(self.cdb) + 1) #5-digit userid
-        if len(self.userid) == 1:
-            self.userid = "0000" + self.userid
-        elif len(self.userid) == 2:
-            self.userid = "000" + self.userid
-        elif len(self.userid) == 3:
-            self.userid = "00" + self.userid
-        elif len(self.userid) == 4:
-            self.userid = "0" + self.userid
-        
+        self.userid = useridFormat(str(len(self.cdb) + 1)) #5-digit userid
+         
         with open("../data/credentials_database.csv", 'a', encoding = 'UTF8', newline = '') as credentials:
             credentials_writer = csv.writer(credentials)
             credentials_writer.writerow([self.userid, 
@@ -111,16 +114,9 @@ class User:
     def getuserId(self):
         self.cdb = pd.read_csv("../data/credentials_database.csv")
         ind = self.index[self.cdb.username == self.username].tolist()
-        self.userid = str(self.cdb.userid[ind[0]])
-        if len(self.userid) == 1:
-            self.userid = "0000" + self.userid
-        elif len(self.userid) == 2:
-            self.userid = "000" + self.userid
-        elif len(self.userid) == 3:
-            self.userid = "00" + self.userid
-        elif len(self.userid) == 4:
-            self.userid = "0" + self.userid
-        return self.userid   
+        self.userid = useridFormat(str(self.cdb.userid[ind[0]]))
+        return(self.userid)
+ 
 
     def getuserName(self):
         return self.username
