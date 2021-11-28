@@ -113,6 +113,21 @@ print("Congratulations! You have been matched with: " +
       "\n Thank you for using GetHelp!"
       )
 
-    
+## Matching with distance: 
+### DO NOT RUN
+
+#rdb_Ride = rdb.loc[rdb["Cat"] == "Ride"]
+#sdb_Ride = sdb.loc[sdb["Cat"] == "Ride"]
+
+
+#for r in range(len(rdb_Ride)):
+    #scores = []
+    #distDiff = []
+    #for s in range(len(sdb_Ride)):
+        #score = fuzz.ratio(rdb_Ride.string[r],sdb_Ride.string[s])
+        #scores.append(score)                 
+
+        #diff = float(rdb_Ride.distanceKM[r]) - float(sdb_Ride.distanceKM[s])                  
+        #distDiff.append(diff)    
 
     
