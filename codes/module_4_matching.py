@@ -18,6 +18,20 @@ df_list = [rdb, sdb]
 
 for df in df_list:
     
+    df.rename(columns={df.columns[0]:'userid',
+                       df.columns[1]:'userType',
+                       df.columns[2]:'Date',
+                       df.columns[3]:'Time',
+                       df.columns[4]:'Cat',
+                       df.columns[5]:'Opt',
+                       df.columns[6]:'Org',
+                       df.columns[7]:'OrgAdd',
+                       df.columns[8]:'OrgCoord',
+                       df.columns[9]:'Dest',
+                       df.columns[10]:'DestAdd',
+                       df.columns[11]:'DestCoord'},
+              inplace = True)
+    
     # 1. Create unique transaction ID
     ## This can be provided after every to user after every input
     id = []
@@ -25,7 +39,7 @@ for df in df_list:
         id.append(i+1)
     df["transactionID"] = id
 
-    # 2. Create distance variable 
+    # 2. Create distance variable
     distance =[]
 
     for i in range(len(df)):
@@ -53,15 +67,16 @@ for df in df_list:
 ## Matching:
 
     # 1. For each observation in rdb, calculate fuzz ratio vs all observations in sdb
-    ## Still need to generate matches in sdb dataframe
-    
+    ## Still need to save matches in sdb dataframe
+
 scores_list = []
 match_list = []
 match_string = []
-for x in range(len(rdb)):
+
+for r in range(len(rdb)):
     scores = []
-    for y in range(len(sdb)):
-        score = fuzz.ratio(rdb.string[x],sdb.string[y])
+    for s in range(len(sdb)):
+        score = fuzz.ratio(rdb.string[r],sdb.string[s])
         scores.append(score)                  # create list of scores for each obs
 
     scores_list.append(max(scores))           # create list of max scores per obs
@@ -75,7 +90,8 @@ rdb["matchScores"] = scores_list
 rdb["matchString"] = match_string
 
     # 2. Print details of match: userID + details 
-    ## Can be included as a method to Request class?
+    ## Still need to generate errors for invalid Transaction IDs
+    ## Can this be included as method in Request class? 
 
 userType = str(input("Did you:" +
                          "\n1. Request for Help" + 
@@ -86,15 +102,17 @@ transID = int(input("What is your transaction ID? "))
 matchID = int(rdb.loc[rdb['transactionID'] == transID].matchID)
 sdbMatch = sdb.loc[sdb["transactionID"] == matchID]
 
-print("Congratulations you have been matched with: " +
-      "\n User ID: " + str(sdbMatch.at[0, 'userid']) +
-      "\n Request Category: " + sdbMatch.at[0, 'Cat'] +
-      "\n Request Option: " + str(sdbMatch.at[0, 'Opt']) +
-      "\n Request Origin: " + sdbMatch.at[0, 'Org'] + 
-      "\n Request Destination: " + sdbMatch.at[0, 'Dest'] + 
-      "\n Request Date: " + str(sdbMatch.at[0, 'Date']) + 
-      "\n Request Time: " + str(sdbMatch.at[0, 'Time'])
+print("Congratulations! You have been matched with: " +
+      "\n User ID: " + str(sdbMatch.iloc[0].userid) +
+      "\n Request Category: " + str(sdbMatch.iloc[0].Cat) +
+      "\n Request Option: " + str(sdbMatch.iloc[0].Opt) +
+      "\n Request Origin: " + str(sdbMatch.iloc[0].Org) + 
+      "\n Request Destination: " + str(sdbMatch.iloc[0].Dest) + 
+      "\n Request Date: " + str(sdbMatch.iloc[0].Date) + 
+      "\n Request Time: " + str(sdbMatch.iloc[0].Time) +
+      "\n Thank you for using GetHelp!"
       )
+
     
 
     
