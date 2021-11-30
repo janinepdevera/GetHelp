@@ -6,56 +6,82 @@ Created on Sat Nov 20 17:03:58 2021
 """
 
 import csv
-#import pandas as pd
 import module_1_login_oop as m1
-import module_2_requests_oop as m2
+import module_2_requests_oop_dist as m2
+import pandas as pd
 
-def saveData():
-    # Call Module 1
-    user1 = m1.User()
+user1 = m1.User()
+rdb = pd.read_csv("../data/requests_database.csv")
+sdb = pd.read_csv("../data/requests_database.csv")
+
+def transID(df):
+    try:
+        reqID = 1 + df[df.username == user1.getuserName()].groupby('userID')['username'].value_counts().tolist()[0]
+        reqID = m1.idFormat(str(reqID))
+    except IndexError:
+        reqID = m1.idFormat("1")
+    return reqID
+    
+def saveData():   
     user1.checkAccount()
             
-    # Run Module 2
-    ### Ask if you want to add help request or support service
     print("\nHello, " + user1.getuserName() + "!" + "\nWelcome to GetHelp!")
     userType = str(input("What do you want to do today?" +
                          "\n1. Request for Help" + 
                          "\n2. Offer to Help\n" +
                          "\nEnter 1 or 2: "))
-    
-    # add a unique requestID or offerID every time a user enters a new request
-    # reqID =
-    
+    # Input Request   
     if userType == "1":
         Request1 = m2.Request("Help Request")
         Request1.runAll()
         
-    # tabulate package    
-    # Module 3 (trial)
-    ## either transform/reshape the dataframes to boolean or
-    ## change saving format to boolean using the dictionary in Module 2 then match to columns    
-        ### saves new request of user to dataframe
+        reqID = transID(rdb)
+        transactionID = user1.getuserId() + str(userType) + reqID # 11-digit transaction id
+        
         with open("../data/requests_database.csv", 'a', encoding = 'UTF8', newline = '') as helpRequests:
             helpRequests_writer = csv.writer(helpRequests)
-            helpRequests_writer.writerow([user1.getuserId(),
+            helpRequests_writer.writerow([transactionID,
+                                         user1.getuserId(),
+                                         user1.getuserName(),
                                          userType,
+                                         reqID,
                                          Request1.getreqDate(),
-                                         Request1.getreqTime(), # must return time only
+                                         Request1.getreqTime(), 
                                          Request1.getreqCat(),
-                                         Request1.getreqOpt()])
-            
-       ### saves new offer of user to dataframe
+                                         Request1.getreqOpt(),
+                                         Request1.getreqOrg(),
+                                         Request1.getreqOrg_add(),
+                                         Request1.getreqOrg_coord(),
+                                         Request1.getreqDest(),
+                                         Request1.getreqDest_add(),
+                                         Request1.getreqDest_coord()])
+    
+    # Input Offer        
     elif userType == "2":
-        Offer1 = m2.Request("Support Service") # can use request_OOP - if options for requests and offers are the same
+        Offer1 = m2.Request("Support Service") 
         Offer1.runAll()
+        
+        reqID = transID(sdb)
+        transactionID = user1.getuserId() + str(userType) + reqID # 11-digit transaction id
         
         with open("../data/support_database.csv", 'a', encoding = 'UTF8', newline = '') as supportServices:
             supportServices_writer = csv.writer(supportServices)
-            supportServices_writer.writerow([user1.getuserId(),
+            supportServices_writer.writerow([transactionID,
+                                         user1.getuserId(),
+                                         user1.getuserName(),
                                          userType,
+                                         reqID,
                                          Offer1.getreqDate(),
-                                         Offer1.getreqTime(), # must return time only
+                                         Offer1.getreqTime(), 
                                          Offer1.getreqCat(),
-                                         Offer1.getreqOpt()])
+                                         Offer1.getreqOpt(),
+                                         Offer1.getreqOrg(),
+                                         Offer1.getreqOrg_add(),
+                                         Offer1.getreqOrg_coord(),
+                                         Offer1.getreqDest(),
+                                         Offer1.getreqDest_add(),
+                                         Offer1.getreqDest_coord()])
 
-saveData()    
+
+saveData()  
+  
