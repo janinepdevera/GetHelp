@@ -1,0 +1,5 @@
+﻿transactionID,userID,username,userType,helpID,Date,Time,Cat,Opt,Org,OrgAdd,OrgCoord,Dest,DestAdd,DestCoord
+00001100001,00001,adelle,1,00001,2021-12-01,10:00:00,Errands,Flat maintenance,Hertie School,"Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)",NA,NA,NA
+00005100001,00005,dsa,1,00001,2021-12-03,13:00:00,Translate,German,Hertie School,"Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)",NA,NA,NA
+00001100002,00001,adelle,1,00002,2021-12-03,14:00:00,Ride,NA,Hertie School,"Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)",Berlin Social Science Center,"Wissenschaftszentrum Berlin für Sozialforschung, Hitzigallee, Botschaftsviertel, Tiergarten, Mitte, Berlin, 10785, Deutschland","(52.506651250000004, 13.365106094794523)"
+00001100003,00001,adelle,1,00003,2021-12-05,13:00:00,Translate,German,Hertie School,"Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)",NA,NA,NA
