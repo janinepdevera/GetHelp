@@ -7,7 +7,7 @@ Created on Sat Nov 20 17:03:58 2021
 
 import csv
 import module_1_login_oop as m1
-import module_2_requests_oop_dist as m2
+import module_2_requests_oop as m2
 import pandas as pd
 
 user1 = m1.User()
@@ -54,7 +54,8 @@ def saveData():
                                          Request1.getreqOrg_coord(),
                                          Request1.getreqDest(),
                                          Request1.getreqDest_add(),
-                                         Request1.getreqDest_coord()])
+                                         Request1.getreqDest_coord(),
+                                         Request1.getreqInfo()])
     
     # Input Offer        
     elif userType == "2":
@@ -80,7 +81,8 @@ def saveData():
                                          Offer1.getreqOrg_coord(),
                                          Offer1.getreqDest(),
                                          Offer1.getreqDest_add(),
-                                         Offer1.getreqDest_coord()])
+                                         Offer1.getreqDest_coord(),
+                                         Offer1.getreqInfo()])
 
 
 saveData()  
