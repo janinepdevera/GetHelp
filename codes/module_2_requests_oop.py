@@ -8,6 +8,11 @@ Created on Fri Nov 19 00:28:45 2021
 
 from datetime import datetime 
 from datetime import date 
+from geopy.geocoders import Nominatim
+
+def geo(loc):  
+    geolocator = Nominatim(user_agent="http")
+    return geolocator.geocode(loc)
 
 class Request:
     def __init__(self, type):
@@ -90,9 +95,39 @@ class Request:
     
     # select option
     def OptSelect(self):
-        self.catOptions = self.optionsDict[self.selectCat]
-        self.selectOption= self.OptionsSelect(self.catOptions, (self.type + " Option"))
+        if self.selectCat != "Ride":
+            self.catOptions = self.optionsDict[self.selectCat]
+            self.selectOption= self.OptionsSelect(self.catOptions, (self.type + " Option"))            
+        else:
+            self.selectOption = "NA"
     
+    # input location
+    def LocSelect(self):
+        while True:
+            try:
+                if self.selectCat == "Ride":
+                    self.OptOrg = str(input("Please enter the complete address of your origin: "))
+                    self.OrgAdd = geo(str(self.OptOrg) + " Berlin, Deutschland").address #must always be within Berlin state
+                    self.OrgCoord = (geo(self.OptOrg).latitude, geo(self.OptOrg).longitude)
+                    
+                    self.OptDest = str(input("Please enter the complete address of your destination: "))
+                    self.DestAdd = geo(str(self.OptDest) + " Berlin, Deutschland").address
+                    self.DestCoord = (geo(self.OptDest).latitude, geo(self.OptDest).longitude)            
+                
+                else: #also enter address for other categories
+                    self.OptOrg = str(input("Please enter the complete address of your preferred location: "))
+                    self.OrgAdd = geo(str(self.OptOrg) + " Berlin, Deutschland").address #must always be within Berlin state
+                    self.OrgCoord = (geo(self.OptOrg).latitude, geo(self.OptOrg).longitude)
+                    
+                    self.OptDest = "NA"
+                    self.DestAdd = "NA"
+                    self.DestCoord = "NA"
+                    
+            except AttributeError:
+                    print ("Invalid address. Please enter address within Berlin only.") 
+                    continue
+            break
+   
     # input date    
     def validDate(self):   
         while True:
@@ -117,19 +152,38 @@ class Request:
             else: 
                 break
     
+    # input additional information:
+    def AddInfo(self):
+        self.info = str(input("Please provide any additional information regarding your request (enter NONE if no further details are needed): "))
+    
     # print request details
     def printDetails(self):
-        print("Thank you! Your", self.type, "has been recorded with the following details:")
-        print("Category: ", self.selectCat)
-        print("Option: ", self.selectOption)
-        print("Date: ", self.requestdate)
-        print("Time: ", self.requesttime)
+        if self.selectCat == "Ride":
+            print("Thank you! Your", self.type, "has been recorded with the following details:" +
+                  "\n Category: ", self.selectCat +
+                  #"\n Option: ", self.selectOption +
+                  "\n Origin: ", self.OrgAdd +
+                  "\n Destination: ", self.DestAdd +
+                  "\n Date: ", str(self.requestdate) +
+                  "\n Time: ", str(self.requesttime) +
+                  "\n Additional Information: ", self.info)
+        else:
+            print("Thank you! Your", self.type, "has been recorded with the following details:" +
+                  "\n Category: ", self.selectCat +
+                  "\n Option: ", self.selectOption +
+                  "\n Location: ", self.OrgAdd +
+                  #"\n Destination: ", self.DestAdd +
+                  "\n Date: ", str(self.requestdate) +
+                  "\n Time: ", str(self.requesttime) +
+                  "\n Additional Information: ", self.info)
     
     def runAll(self):
         self.CatSelect()
         self.OptSelect()
+        self.LocSelect()
         self.validDate()
         self.validTime()
+        self.AddInfo()
         self.printDetails()
     
     # getters
@@ -139,9 +193,31 @@ class Request:
     def getreqOpt(self):
         return self.selectOption
     
+    def getreqOrg(self):
+        return self.OptOrg
+    
+    def getreqOrg_add(self):
+        return self.OrgAdd
+    
+    def getreqOrg_coord(self):
+        return self.OrgCoord
+    
+    def getreqDest(self):
+        return self.OptDest
+    
+    def getreqDest_add(self):
+        return self.DestAdd
+    
+    def getreqDest_coord(self):
+        return self.DestCoord
+    
     def getreqDate(self):
         return self.requestdate
         
     def getreqTime(self):
         return self.requesttime
+    
+    def getreqInfo(self):
+        return self.info
+
     
