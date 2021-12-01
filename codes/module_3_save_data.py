@@ -12,7 +12,7 @@ import pandas as pd
 
 user1 = m1.User()
 rdb = pd.read_csv("../data/requests_database.csv")
-sdb = pd.read_csv("../data/requests_database.csv")
+sdb = pd.read_csv("../data/support_database.csv")
 
 def transID(df):
     try:
