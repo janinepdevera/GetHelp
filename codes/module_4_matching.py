@@ -33,7 +33,7 @@ matches_cols = ["rdb_transactionID", "rdb_userID", "rdb_username", "rdb_string",
 matches_df = pd.DataFrame(columns = matches_cols)
 
 scores_df = pd.DataFrame(columns = ["textScores", "DateDiff", "TimeDiff",
-                                    "orgDistance"])
+                                    "orgDistance", "destDistance"])
 
 # 3. LEVEL 1: Generate text similarity scores (for each pair)
 
@@ -73,6 +73,24 @@ for r in range(len(rdb)):
         
 # 6. LEVEL 3: Generate location (destination) differences (for each pair)
 
+        if isinstance(rdb.DestCoord[r], float) == False:
+            a = rdb.DestCoord[r].strip('()').split(',')
+            a = tuple(a)
+            a = (float(a[0]), float(a[1]))
+        
+        if isinstance(sdb.DestCoord[s], float) == False:
+            b = sdb.DestCoord[s].strip('()').split(',')
+            b = tuple(b)
+            b = (float(b[0]), float(b[1]))
+
+        try:
+            distance = geodesic(a, b).kilometers
+            destDist.append(distance)
+            
+        except ValueError:
+            destDist.append("NA")
+
+
 # 7. Populate helper-helpee dataframe with scores
 
         matches_df = matches_df.append({'rdb_transactionID':rdb.transactionID[r],
@@ -88,23 +106,22 @@ for r in range(len(rdb)):
     scores_df = scores_df.append({'textScores':scores,
                                  'DateDiff': dates,
                                  'TimeDiff': times,
-                                 'orgDistance': orgDist},
+                                 'orgDistance': orgDist,
+                                 'destDistance': destDist},
                                  ignore_index=True)
         
-    scores_df = scores_df.explode(['textScores', 'DateDiff', 'TimeDiff', 'orgDistance'])
+    scores_df = scores_df.explode(['textScores', 'DateDiff', 'TimeDiff',
+                                   'orgDistance', 'destDistance'])
     
 match_final = pd.concat([matches_df.reset_index(drop=True), 
                     scores_df.reset_index(drop=True)], 
                    axis=1)
 
-# 8. Match using text score, date and time difference, OD differences            
-
-# 9. Print details of match    
 
 
+            
 
-
-
+    
 ### OLD CODES ###
 
 #scores_list = []
