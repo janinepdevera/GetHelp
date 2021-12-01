@@ -120,10 +120,6 @@ pairdb = pd.concat([pairs_df.reset_index(drop=True),
 
 ## GENERATE MATCHES
 
-def unique(list1):
-    x = np.array(list1)
-    print(np.unique(x))
-
 stringThreshold = 90
 
     # get scores above threshold
@@ -145,7 +141,6 @@ match4 = match3[idx_m4]
 idx_m5 = match4.groupby(['rdb_transactionID'])['destDistance'].transform(min) == match4['destDistance']
 matches = match4[idx_m5] 
 
-
 def GetMatch():
     userType = str(input("Did you:" +
                          "\n1. Request for Help" +
@@ -153,16 +148,18 @@ def GetMatch():
                          "\nEnter 1 or 2: "))
 
     transID = input("What is your transaction ID? ")
-    
-    if userType == "1":
-        matchID = matches.loc[matches['rdb_transactionID'] == int(transID)].sdb_transactionID
-        matchFinal = sdb.loc[sdb['transactionID'] == int(matchID)]
+
+    try:
+        if userType == "1":
+            matchID = matches.loc[matches['rdb_transactionID'] == int(transID)].sdb_transactionID
+            matchFinal = sdb.loc[sdb['transactionID'] == int(matchID)]
+        else:
+            matchID = matches.loc[matches['sdb_transactionID'] == int(transID)].rdb_transactionID
+            matchFinal = rdb.loc[rdb['transactionID'] == int(matchID)]
+            
+    except TypeError:
+        print("Sorry, we have not yet found any matches for your request.")
         
-    else:
-        matchID = str(matches.loc[matches['sdb_transactionID'] == transID].rdb_transactionID)
-        matchFinal = rdb.loc[rdb['transactionID'] == matchID]
-
-
     print("Congratulations! You have been matched with: " +
           "\n User: " + str(matchFinal.iloc[0].username) +
           "\n Request Category: " + str(matchFinal.iloc[0].Cat) +
@@ -173,7 +170,7 @@ def GetMatch():
           "\n Request Time: " + str(matchFinal.iloc[0].Time) +
           "\n Additional Information: " + str(matchFinal.iloc[0].AddInfo) +
           "\n Thank you for using GetHelp!"
-          )
+              )
           
 GetMatch()
 
