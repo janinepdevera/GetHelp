@@ -7,6 +7,7 @@ Created on Sat Nov 27 10:15:12 2021
 """
 
 import pandas as pd
+import numpy as np
 from geopy.distance import geodesic
 from fuzzywuzzy import fuzz
 from datetime import datetime 
@@ -51,12 +52,12 @@ for r in range(len(rdb)):
 
 # 4. LEVEL 2: Generate date difference and time difference (for each pair)   
   
-        # remove time difference
-        date = datetime.strptime(rdb.Date[r], '%Y-%m-%d') - datetime.strptime(sdb.Date[s], '%Y-%m-%d')
+        date = abs((datetime.strptime(rdb.Date[r], '%Y-%m-%d') 
+                    - datetime.strptime(sdb.Date[s], '%Y-%m-%d')).days)
         dates.append(date)
         
-        # remove day difference
-        time = datetime.strptime(rdb.Time[r], '%H:%M:%S') -  datetime.strptime(sdb.Time[s], '%H:%M:%S')
+        time = abs((datetime.strptime(rdb.Time[r], '%H:%M:%S') -  
+                datetime.strptime(sdb.Time[s], '%H:%M:%S')).total_seconds() / 60)
         times.append(time)
 
 # 5. LEVEL 3: Generate location (origin) differences (for each pair)
@@ -113,18 +114,70 @@ for r in range(len(rdb)):
     scores_df = scores_df.explode(['textScores', 'DateDiff', 'TimeDiff',
                                    'orgDistance', 'destDistance'])
     
-match_final = pd.concat([pairs_df.reset_index(drop=True), 
+match_df = pd.concat([pairs_df.reset_index(drop=True), 
                     scores_df.reset_index(drop=True)], axis=1)
 
-# 8. Generate rankings
-## for each i in match_final, get textScores > 90 = match1
-## if len(match1) > 1, get min(datediff) = match2
-## if len(match2) > 1, get min(timediff) = match3
-## if len(match3) > 1, get min(orgdistance) = match4
-##
+# 8. Generate matches
+
+def unique(list1):
+    x = np.array(list1)
+    print(np.unique(x))
+
+stringThreshold = 90
+
+def GetMatch():
+    
+## Dataframe of final matches    
+    # get scores above threshold
+    match1 = match_df.loc[match_df['textScores'] >= stringThreshold]
+    
+    # get minimum data difference
+    idx_m2 = match1.groupby(['rdb_transactionID'])['DateDiff'].transform(min) == match1['DateDiff']
+    match2 = match1[idx_m2]
+    
+    # get minimum time difference
+    idx_m3 = match2.groupby(['rdb_transactionID'])['TimeDiff'].transform(min) == match2['TimeDiff']
+    match3 = match2[idx_m3]
+    
+    # get minimum location difference (origin)
+    idx_m4 = match3.groupby(['rdb_transactionID'])['orgDistance'].transform(min) == match3['orgDistance']
+    match4 = match3[idx_m4]
+    
+    # get minimum location difference (destination)
+    idx_m5 = match4.groupby(['rdb_transactionID'])['destDistance'].transform(min) == match4['destDistance']
+    match5 = match4[idx_m5]
+    
+    
+## Return match to user
+    userType = str(input("Did you:" +
+                         "\n1. Request for Help" +
+                         "\n2. Offer to Help\n" +
+                         "\nEnter 1 or 2: "))
+
+    transID = int(input("What is your transaction ID? "))
+    
+    if userType == "1":
+        matchID = int(match5.loc[match5['rdb_transactionID'] == transID].sdb_transactionID)
+        matchFinal = sdb.loc[sdb['transactionID'] == matchID]
+        
+    else:
+        matchID = int(match5.loc[match5['sdb_transactionID'] == transID].rdb_transactionID)
+        matchFinal = rdb.loc[rdb['transactionID'] == matchID]
 
 
-            
+    #print("Congratulations! You have been matched with: " +
+          #"\n User ID: " + str(sdbMatch.iloc[0].userid) +
+          #"\n Request Category: " + str(sdbMatch.iloc[0].Cat) +
+          #"\n Request Option: " + str(sdbMatch.iloc[0].Opt) +
+          #"\n Request Origin: " + str(sdbMatch.iloc[0].Org) +
+          #"\n Request Destination: " + str(sdbMatch.iloc[0].Dest) +
+          #"\n Request Date: " + str(sdbMatch.iloc[0].Date) +
+          #"\n Request Time: " + str(sdbMatch.iloc[0].Time) +
+          #"\n Thank you for using GetHelp!"
+          #)
+          
+GetMatch()
+
 
 
 ### OLD CODES ###
