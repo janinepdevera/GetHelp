@@ -28,9 +28,9 @@ for df in df_list:
 
 # 2. Prepare dataframe of all helper-helpee pairs 
 
-matches_cols = ["rdb_transactionID", "rdb_userID", "rdb_username", "rdb_string",
+pairs_cols = ["rdb_transactionID", "rdb_userID", "rdb_username", "rdb_string",
                 "sdb_transactionID", "sdb_userID", "sdb_username", "sdb_string"]
-matches_df = pd.DataFrame(columns = matches_cols)
+pairs_df = pd.DataFrame(columns = pairs_cols)
 
 scores_df = pd.DataFrame(columns = ["textScores", "DateDiff", "TimeDiff",
                                     "orgDistance", "destDistance"])
@@ -93,7 +93,7 @@ for r in range(len(rdb)):
 
 # 7. Populate helper-helpee dataframe with scores
 
-        matches_df = matches_df.append({'rdb_transactionID':rdb.transactionID[r],
+        pairs_df = pairs_df.append({'rdb_transactionID':rdb.transactionID[r],
                                         'rdb_userID':rdb.userID[r],
                                         'rdb_username':rdb.username[r],
                                         'rdb_string':rdb.string[r],
@@ -113,14 +113,20 @@ for r in range(len(rdb)):
     scores_df = scores_df.explode(['textScores', 'DateDiff', 'TimeDiff',
                                    'orgDistance', 'destDistance'])
     
-match_final = pd.concat([matches_df.reset_index(drop=True), 
+match_final = pd.concat([pairs_df.reset_index(drop=True), 
                     scores_df.reset_index(drop=True)], axis=1)
 
+# 8. Generate rankings
+## for each i in match_final, get textScores > 90 = match1
+## if len(match1) > 1, get min(datediff) = match2
+## if len(match2) > 1, get min(timediff) = match3
+## if len(match3) > 1, get min(orgdistance) = match4
+##
 
 
             
 
-    
+
 ### OLD CODES ###
 
 #scores_list = []
