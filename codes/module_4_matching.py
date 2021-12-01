@@ -24,7 +24,7 @@ df_list = [rdb, sdb]
 
 for df in df_list:
     df["string"] = (df["Cat"] + df["Opt"].fillna('') +
-                    df["AddInfo"].fillna('')).astype(str)
+                    df["AddInfo"].fillna('').replace("NONE","")).astype(str)
 
 # 2. Prepare dataframe of all helper-helpee pairs 
 
@@ -114,8 +114,7 @@ for r in range(len(rdb)):
                                    'orgDistance', 'destDistance'])
     
 match_final = pd.concat([matches_df.reset_index(drop=True), 
-                    scores_df.reset_index(drop=True)], 
-                   axis=1)
+                    scores_df.reset_index(drop=True)], axis=1)
 
 
 
