@@ -11,8 +11,8 @@ import module_2_requests_oop as m2
 import pandas as pd
 
 user1 = m1.User()
-rdb = pd.read_csv("../data/requests_database.csv")
-sdb = pd.read_csv("../data/support_database.csv")
+rdb = pd.read_csv("../data/requests_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
+sdb = pd.read_csv("../data/support_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
 
 def transID(df):
     try:
@@ -55,7 +55,8 @@ def saveData():
                                          Request1.getreqDest(),
                                          Request1.getreqDest_add(),
                                          Request1.getreqDest_coord(),
-                                         Request1.getreqInfo()])
+                                         Request1.getreqInfo(),
+                                         Request1.getTimestamp()])
     
     # Input Offer        
     elif userType == "2":
@@ -82,8 +83,12 @@ def saveData():
                                          Offer1.getreqDest(),
                                          Offer1.getreqDest_add(),
                                          Offer1.getreqDest_coord(),
-                                         Offer1.getreqInfo()])
+                                         Offer1.getreqInfo(),
+                                         Offer1.getTimestamp()])
 
+    else:
+        print("Please enter a valid option.")
+        saveData()
 
-saveData()  
+#saveData()  
   
