@@ -1,3 +1,5 @@
 .cache
 .pyc
 codes/__pycache__
+.spyproject
+.spyproject/config
