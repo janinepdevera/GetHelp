@@ -156,6 +156,9 @@ class Request:
     def AddInfo(self):
         self.info = str(input("Please provide any additional information regarding your request (enter NONE if no further details are needed): "))
     
+    def TimeStamp(self):
+        self.timenow = datetime.now()
+    
     # print request details
     def printDetails(self):
         if self.selectCat == "Ride":
@@ -166,7 +169,8 @@ class Request:
                   "\n Destination: ", self.DestAdd +
                   "\n Date: ", str(self.requestdate) +
                   "\n Time: ", str(self.requesttime) +
-                  "\n Additional Information: ", self.info)
+                  "\n Additional Information: ", self.info,
+                  "\n Timestamp: ", self.timenow)
         else:
             print("Thank you! Your", self.type, "has been recorded with the following details:" +
                   "\n Category: ", self.selectCat +
@@ -175,7 +179,8 @@ class Request:
                   #"\n Destination: ", self.DestAdd +
                   "\n Date: ", str(self.requestdate) +
                   "\n Time: ", str(self.requesttime) +
-                  "\n Additional Information: ", self.info)
+                  "\n Additional Information: ", self.info,
+                  "\n Timestamp: ", self.timenow)
     
     def runAll(self):
         self.CatSelect()
@@ -184,6 +189,7 @@ class Request:
         self.validDate()
         self.validTime()
         self.AddInfo()
+        self.TimeStamp()
         self.printDetails()
     
     # getters
@@ -219,5 +225,8 @@ class Request:
     
     def getreqInfo(self):
         return self.info
+    
+    def getTimestamp(self):
+        return self.timenow
 
     
