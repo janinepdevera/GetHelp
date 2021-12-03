@@ -11,9 +11,8 @@ import module_3_save_data as m3
 import module_4_matching_oop_AA as m4
 
 
-Match = m4.Matches()
-
 def GetHelp():
+    Match = m4.Matches()
     action = str(input("Guten Tag! Welcome to GetHelp!" +
               "\nAre you here to: " + 
               "\n1. Add Request/Offer" +
