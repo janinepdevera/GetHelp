@@ -180,7 +180,7 @@ class Matches:
                     PrintMatch(matchFinal)
                 else: #if transID1 has no match
                     print("Sorry, we have not yet found any matches for your request.")           
-            else: # if transID1 does not match
+            else: # if transID1 does not exist
                 print("Sorry, the transaction ID does not exist.")
                 
         elif userType == "2":
@@ -191,7 +191,7 @@ class Matches:
                     PrintMatch(matchFinal)
                 else: #if transID1 has no match
                     print("Sorry, we have not yet found any matches for your request.")           
-            else: # if transID1 does not match
+            else: # if transID1 does not exist
                 print("Sorry, the transaction ID does not exist.")
         
         else: #debug this, not returning print
