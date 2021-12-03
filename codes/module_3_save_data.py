@@ -10,11 +10,8 @@ import module_1_login_oop as m1
 import module_2_requests_oop as m2
 import pandas as pd
 
-user1 = m1.User()
-rdb = pd.read_csv("../data/requests_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
-sdb = pd.read_csv("../data/support_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
 
-def transID(df):
+def transID(df,user1):
     try:
         reqID = 1 + df[df.username == user1.getuserName()].groupby('userID')['username'].value_counts().tolist()[0]
         reqID = m1.idFormat(str(reqID))
@@ -22,7 +19,11 @@ def transID(df):
         reqID = m1.idFormat("1")
     return reqID
     
-def saveData():   
+def saveData():
+    user1 = m1.User()
+    rdb = pd.read_csv("../data/requests_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
+    sdb = pd.read_csv("../data/support_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
+
     user1.checkAccount()
             
     print("\nHello, " + user1.getuserName() + "!" + "\nWelcome to GetHelp!")
@@ -35,8 +36,13 @@ def saveData():
         Request1 = m2.Request("Help Request")
         Request1.runAll()
         
-        reqID = transID(rdb)
+        reqID = transID(rdb, user1)
         transactionID = user1.getuserId() + str(userType) + reqID # 11-digit transaction id
+        print("\nPlease check the status of your GetHelp Request using your transaction id.",
+              "\n Transaction ID: ", transactionID,
+              "\n",
+              "\nThank you for using GetHelp, ", user1.getuserName(), "!",
+              "\nHave a nice day!")
         
         with open("../data/requests_database.csv", 'a', encoding = 'UTF8', newline = '') as helpRequests:
             helpRequests_writer = csv.writer(helpRequests)
@@ -63,8 +69,13 @@ def saveData():
         Offer1 = m2.Request("Support Service") 
         Offer1.runAll()
         
-        reqID = transID(sdb)
+        reqID = transID(sdb, user1)
         transactionID = user1.getuserId() + str(userType) + reqID # 11-digit transaction id
+        print("\nPlease check the status of your GetHelp Offer using your transaction id.",
+              "\n Transaction ID: ", transactionID,
+              "\n",
+              "\nThank you for using GetHelp, ", user1.getuserName(), "!",
+              "\nHave a nice day!")
         
         with open("../data/support_database.csv", 'a', encoding = 'UTF8', newline = '') as supportServices:
             supportServices_writer = csv.writer(supportServices)
@@ -89,6 +100,3 @@ def saveData():
     else:
         print("\nPlease enter a valid option.")
         saveData()
-
-#saveData()  
-  
