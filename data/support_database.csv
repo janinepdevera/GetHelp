@@ -1,4 +1,4 @@
-transactionID,userID,username,userType,helpID,Date,Time,Cat,Opt,Org,OrgAdd,OrgCoord,Dest,DestAdd,DestCoord,AddInfo
+transactionID,userID,username,userType,helpID,Date,Time,Cat,Opt,Org,OrgAdd,OrgCoord,Dest,DestAdd,DestCoord,AddInfo,TimeStamp
 00014200001,00014,offer1,2,00001,2021-12-02,19:00:00,Translate,German,Hertie School,"Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)",NA,NA,NA,Conversational German
 00013200001,00013,janine,2,00001,2021-12-05,18:00:00,Tutor,Statistics,Waßmannsdorfer Chaussee 50,"Waßmannsdorfer Chaussee, Rudow, Neukölln, Berlin, 12355, Deutschland","(52.41059, 13.4936857)",NA,NA,NA,Probability theory
 00013200002,00013,janine,2,00002,2021-12-25,10:00:00,Errands,Take care of pets/plants,Waßmannsdorfer Chaussee 50,"Waßmannsdorfer Chaussee, Rudow, Neukölln, Berlin, 12355, Deutschland","(52.41059, 13.4936857)",NA,NA,NA,Can take care of dogs
@@ -19,3 +19,4 @@ transactionID,userID,username,userType,helpID,Date,Time,Cat,Opt,Org,OrgAdd,OrgCo
 00017200006,00017,helper2,2,00006,2021-12-19,10:00:00,Tutor,Programming Language: Python,Hertie School,"Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)",NA,NA,NA,NONE
 00013200005,00013,janine,2,00005,2022-01-02,18:00:00,Ride,NA,Leopoldstraße 29,"29, Leopoldstraße, Weitlingkiez, Rummelsburg, Lichtenberg, Berlin, 10317, Deutschland","(52.5031238, 13.4883772)",Genslerstraße 87,"Genslerstraße, Alt-Hohenschönhausen, Lichtenberg, Berlin, 13055, Deutschland","(52.5433052, 13.5005371)",NONE
 00014200003,00014,offer1,2,00003,2021-12-05,18:00:00,Ride,NA,Genslerstraße 87,"Genslerstraße, Alt-Hohenschönhausen, Lichtenberg, Berlin, 13055, Deutschland","(52.5433052, 13.5005371)",Waßmannsdorfer Chaussee 50,"Waßmannsdorfer Chaussee, Rudow, Neukölln, Berlin, 12355, Deutschland","(52.41059, 13.4936857)",NONE
+00001200001,00001,adelle,2,00001,2021-12-10,12:00:00,Tutor,Statistics,Hertie School,"Hertie School of Governance, 180, Friedrichstraße, Mitte, Berlin, 10117, Deutschland","(52.5128055, 13.3893204)",NA,NA,NA,Let's have lunch!,2021-12-03 01:25:49.493464
