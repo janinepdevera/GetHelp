@@ -161,7 +161,7 @@ class Matches:
     def getMatchesdb(self):
         return self.matches
     
-    def getMatch(self):
+    def genMatch(self):
         userType = str(input("Did you:" +
                              "\n1. Request for Help" +
                              "\n2. Offer to Help\n" +
@@ -194,13 +194,13 @@ class Matches:
             else: # if transID1 does not match
                 print("Sorry, the transaction ID does not exist.")
         
-        else:
+        else: #debug this, not returning print
             print("Please enter a valid option.")
-            Matches.getMatch(self)
+            Matches.genMatch(self)
 
-m=Matches()
-m.genpairdb()
-m.genMatchesdb()
-m.getpairdb()
-m.getMatchesdb()
-m.getMatch()
+    def runAll(self):      
+        self.genpairdb()
+        self.genMatchesdb()
+        self.genMatch()
+ 
+    
