@@ -87,7 +87,7 @@ def saveData():
                                          Offer1.getTimestamp()])
 
     else:
-        print("Please enter a valid option.")
+        print("\nPlease enter a valid option.")
         saveData()
 
 #saveData()  
