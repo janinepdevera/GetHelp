@@ -11,11 +11,35 @@ from datetime import date
 from geopy.geocoders import Nominatim
 
 def geo(loc):  
+    """
+    Function defines the location of student.
+    
+    Returns
+    -------
+    None.
+    
+    """
     geolocator = Nominatim(user_agent="http")
     return geolocator.geocode(loc)
 
 class Request:
+    """
+    A class to input details of help requested.
+    
+    Attributes
+    ----------
+    type: category
+        The category of help requested.
+    """
     def __init__(self, type):
+    """
+    Function defines the type of help requested.
+    
+    Returns
+    -------
+    None.
+    
+    """
         self.type = type
         
         self.Category = {"1": "Errands",
@@ -65,17 +89,30 @@ class Request:
     
     # general function for selecting from dictionary    
     def OptionsSelect(self, options, name):
+        """
+        Function allows for selecting from help options
+        
+        Returns
+        -------
+        Selected option.
+        """
         index = 0
         indexValidList = []
         print('Select ' + name + ':')
     
         for optionName in options:
+        """
+        For multiple help requests
+        """
             index = index + 1
             indexValidList.extend([options[optionName]])
             print(str(index) + '. ' + options[optionName])
         inputValid = False
         
         while not inputValid:
+        """
+        Defining response for invalid input
+        """
             inputRaw = input(name + ': ')
             inputNo = int(inputRaw) - 1
             
@@ -91,10 +128,26 @@ class Request:
     
     # select category    
     def CatSelect(self):
+        """
+        Defines selected category
+        
+        Returns
+        -------
+        None.
+        
+        """
       self.selectCat = self.OptionsSelect(self.Category, self.type)
     
     # select option
     def OptSelect(self):
+        """
+        Defines selected options
+        
+        Returns
+        -------
+        None.
+        
+        """
         if self.selectCat != "Ride":
             self.catOptions = self.optionsDict[self.selectCat]
             self.selectOption= self.OptionsSelect(self.catOptions, (self.type + " Option"))            
@@ -103,6 +156,14 @@ class Request:
     
     # input location
     def LocSelect(self):
+        """
+        Defines location, if a ride is requested
+        
+        Returns
+        -------
+        None.
+        
+        """
         while True:
             try:
                 if self.selectCat == "Ride":
@@ -129,7 +190,15 @@ class Request:
             break
    
     # input date    
-    def validDate(self):   
+    def validDate(self):  
+        """
+        Defines data of request.
+        
+        Returns
+        -------
+        None.
+        
+        """
         while True:
             try:
                 self.requestdate = datetime.date(datetime.strptime(input("Enter date for request (YYYY-MM-DD): ") ,'%Y-%m-%d'))
@@ -143,6 +212,14 @@ class Request:
     
     # input time 
     def validTime(self):   
+        """
+        Defines time of request.
+        
+        Returns
+        -------
+        None.
+        
+        """
         while True: 
             try:
                 self.requesttime = datetime.time(datetime.strptime(input("Enter time for request (HH:MM): "), "%H:%M"))
@@ -154,6 +231,14 @@ class Request:
     
     # input additional information:
     def AddInfo(self):
+        """
+        Allows user to put in any additional information
+        
+        Returns
+        -------
+        None.
+        
+        """
         self.info = str(input("Please provide any additional information regarding your request (enter NONE if no further details are needed): "))
     
     def TimeStamp(self):
