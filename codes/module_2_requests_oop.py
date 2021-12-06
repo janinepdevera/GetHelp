@@ -32,14 +32,14 @@ class Request:
         The category of help requested.
     """
     def __init__(self, type):
-    """
-    Function defines the type of help requested.
+        """
+        Function defines the type of help requested.
+        
+        Returns
+        -------
+        None.
     
-    Returns
-    -------
-    None.
-    
-    """
+        """
         self.type = type
         
         self.Category = {"1": "Errands",
@@ -101,18 +101,18 @@ class Request:
         print('Select ' + name + ':')
     
         for optionName in options:
-        """
-        For multiple help requests
-        """
+            """
+            For multiple help requests
+            """
             index = index + 1
             indexValidList.extend([options[optionName]])
             print(str(index) + '. ' + options[optionName])
         inputValid = False
         
         while not inputValid:
-        """
-        Defining response for invalid input
-        """
+            """
+            Defining response for invalid input
+            """
             inputRaw = input(name + ': ')
             inputNo = int(inputRaw) - 1
             
@@ -136,7 +136,7 @@ class Request:
         None.
         
         """
-      self.selectCat = self.OptionsSelect(self.Category, self.type)
+        self.selectCat = self.OptionsSelect(self.Category, self.type)
     
     # select option
     def OptSelect(self):
