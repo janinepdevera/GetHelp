@@ -16,8 +16,7 @@ def geo(loc):
     
     Returns
     -------
-    None.
-    
+    Geolocated code for user.
     """
     geolocator = Nominatim(user_agent="http")
     return geolocator.geocode(loc)
@@ -35,10 +34,16 @@ class Request:
         """
         Function defines the type of help requested.
         
+        Parameters
+        ----------
+        Category : dict
+            Type of help requested.
+        optionsDict : dict
+            Offer options for help based on selection in Category.
+        
         Returns
         -------
         None.
-    
         """
         self.type = type
         
@@ -280,38 +285,99 @@ class Request:
     # getters
     def getreqCat(self):
         return self.selectCat
-    
+        """
+        Returns
+        -------
+        Selected category.
+        
+        """    
     def getreqOpt(self):
         return self.selectOption
-    
+        """
+        Returns
+        -------
+        Selected option.
+        
+        """
     def getreqOrg(self):
         return self.OptOrg
-    
+        """
+        Returns
+        -------
+        Identified pick-up address.
+        
+        """ 
     def getreqOrg_add(self):
         return self.OrgAdd
-    
+        """
+        Returns
+        -------
+        Identified pick-up location.
+        
+        """ 
     def getreqOrg_coord(self):
         return self.OrgCoord
-    
+        """
+        Returns
+        -------
+        Pick-up coordinates.
+        
+        """ 
     def getreqDest(self):
         return self.OptDest
-    
+        """
+        Returns
+        -------
+        Identified destination.
+        
+        """ 
     def getreqDest_add(self):
         return self.DestAdd
-    
+        """
+        Returns
+        -------
+        Identified destination location.
+        
+        """ 
     def getreqDest_coord(self):
         return self.DestCoord
-    
+        """
+        Returns
+        -------
+        Destination coordinates.
+        
+        """ 
     def getreqDate(self):
         return self.requestdate
-        
+        """
+        Returns
+        -------
+        Date that help is requested.
+   
+        """      
     def getreqTime(self):
         return self.requesttime
-    
+        """
+        Returns
+        -------
+        Time that help is requested.
+        
+        """ 
     def getreqInfo(self):
         return self.info
-    
+        """
+        Returns
+        -------
+        Additional information provided.
+        
+        """ 
     def getTimestamp(self):
         return self.timenow
+        """
+        Returns
+        -------
+        Current time.
+        
+        """ 
 
     
