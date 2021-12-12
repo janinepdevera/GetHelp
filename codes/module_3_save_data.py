@@ -12,6 +12,14 @@ import pandas as pd
 
 
 def transID(df,user1):
+    """
+    Enter valid ID for user
+    
+    Returns
+    -------
+    ID
+    """
+    
     try:
         reqID = 1 + df[df.username == user1.getuserName()].groupby('userID')['username'].value_counts().tolist()[0]
         reqID = m1.idFormat(str(reqID))
