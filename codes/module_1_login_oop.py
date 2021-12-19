@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Nov 14 16:47:30 2021
+Module 1: Log-in
 
-@author: adellegia
+A User is asked to either log in using their credentials or create a new account.
+
 """
 
 from sys import exit
