@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Nov 20 17:03:58 2021
+Module 3: Save the Data
 
-@author: adellegia
+The User's request or support details are saved in dataframes.
 """
 
 import csv
@@ -15,9 +15,17 @@ def transID(df,user1):
     """
     Enter valid ID for user
     
+    Parameters
+    -------
+    df: dataframe
+        A dataframe of requests/support
+    user1: class
+        Name of class User  
+    
     Returns
     -------
-    ID
+    reqid: str
+        A unique Transaction ID assigned to a request or support added by a User
     """
     
     try:
@@ -28,6 +36,17 @@ def transID(df,user1):
     return reqID
     
 def saveData():
+    """
+    Saves the inputs of User in the Class Request
+    
+
+    Returns
+    -------
+    A dataframe in csv format of requests/support
+
+    """
+    
+    
     user1 = m1.User()
     rdb = pd.read_csv("../data/requests_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
     sdb = pd.read_csv("../data/support_database.csv", dtype = {"transactionID": "str", "userID": "str", "helpID": "str"})
