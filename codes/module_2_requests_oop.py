@@ -315,7 +315,7 @@ class Request:
 
         Returns
         -------
-        None.
+        All objects generated from functions inside
 
         """
         
