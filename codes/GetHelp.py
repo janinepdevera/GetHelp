@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Dec  2 19:52:10 2021
-
-@author: admin
+Run GetHelp from Modules 1 to 4
 """
 
 import module_1_login_oop as m1
@@ -12,6 +10,15 @@ import module_4_matching_oop as m4
 
 
 def GetHelp():
+    """
+    A function that runs the workflow of the GetHelp program
+
+    Returns
+    -------
+    All objects generated from functions inside
+
+    """
+    
     Match = m4.Matches()
     action = str(input("Guten Tag! Welcome to GetHelp!" +
               "\nAre you here to: " + 
