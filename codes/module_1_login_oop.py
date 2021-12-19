@@ -3,7 +3,6 @@
 Module 1: Log-in
 
 A User is asked to either log in using their credentials or create a new account.
-
 """
 
 from sys import exit
