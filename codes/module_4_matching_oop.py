@@ -3,7 +3,7 @@
 """
 Module 4: Matching Algorithm
 
-The program matches two Users based certain parameters from their Requests and Support details.
+The program matches two Users based on certain parameters from their Requests and Support details.
 """
 
 import pandas as pd
