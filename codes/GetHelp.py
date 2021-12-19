@@ -11,7 +11,7 @@ import module_4_matching_oop as m4
 
 def GetHelp():
     """
-    A function that runs the workflow of the GetHelp program
+    A function that runs the entire workflow of the GetHelp program
 
     Returns
     -------
