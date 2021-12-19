@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Nov 19 00:28:45 2021
+Module 2: Input Requests and Support Details
 
-@author: janinedevera
+A User is asked if they want to get Help or provide Help.    
+    
 """
 
 from datetime import datetime 
@@ -13,6 +14,11 @@ from geopy.geocoders import Nominatim
 def geo(loc):  
     """
     Function defines the location of student.
+    
+    Paramters
+    ---------
+    loc: string
+        The location name of a user.
     
     Returns
     -------
@@ -247,10 +253,41 @@ class Request:
         self.info = str(input("Please provide any additional information regarding your request (enter NONE if no further details are needed): "))
     
     def TimeStamp(self):
+        """
+        Gets the timestamp when request/support is sent
+        
+        Returns
+        -------
+        timenow: timestamp.
+        
+        """
         self.timenow = datetime.now()
     
     # print request details
     def printDetails(self):
+        """
+        Prints the details of the User's request or support
+
+        Returns
+        -------
+        selectcat: str
+            Category
+        OrgAdd: 
+            Exact location of the Origin
+        DestAdd:
+            Exact location of the Desitnation
+        requestdate: date
+            Date of request or support
+        requesttime: time
+            Time of request or support            
+        info: str
+            Additional information            
+        Timestamp: time
+            Timestamp when request/support is sent
+        """
+
+        
+        
         if self.selectCat == "Ride":
             print("Thank you! Your", self.type, "has been recorded with the following details:" +
                   "\n Category: ", self.selectCat +
@@ -273,6 +310,15 @@ class Request:
                   "\n Timestamp: ", self.timenow)
     
     def runAll(self):
+        """
+        Runs all functions necessary of Class Request
+
+        Returns
+        -------
+        None.
+
+        """
+        
         self.CatSelect()
         self.OptSelect()
         self.LocSelect()
